@@ -36,6 +36,7 @@ cities = pd.read_csv("cities.csv")
 #catalog.csv: the products. One row per category and seller --> because the same category can be sold by many different sellers. 
 
 catalog = pd.read_csv("catalog.csv")
+catalog["category_english"] = catalog["category_english"].fillna("Unknown category")
 
 
 st.title("Olist Store")
@@ -43,7 +44,7 @@ st.subheader("1. Choose your product")
 
 # Build the dropdown list from the catalog --> category names sorted A to Z.
 categories = sorted(catalog["category_english"].unique())
-choice = st.selectbox("Product category", categories)
+choice = st.selectbox("Choose a category", categories)
 
 # How many items the customer wants (between 1 and 10)
 quantity = st.number_input("Quantity", min_value=1, max_value=10, value=1)
@@ -78,7 +79,11 @@ if st.button("Check delivery estimate"):
     cust_lng = city_row["cust_lng"]
 
     # Find the nearest seller of this product because the seller's location matters
-    sellers = catalog[catalog["category_english"] == choice]
+    sellers = catalog[
+    (catalog["category_english"] == choice)
+    & catalog["sell_lat"].notna()
+    & catalog["sell_lng"].notna()
+    ]
 
     best_distance = None   # the shortest distance found so far
     best_seller = None     # the seller who has that shortest distance
