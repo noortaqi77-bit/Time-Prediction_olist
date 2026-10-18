@@ -49,4 +49,4 @@ states.csv
 requirements.txt
 
 
-##### streamlit App link :(https://time-predictionolist-7sbassgpvyey8uymvhx3am.streamlit.app/)
+##### streamlit App link :(https://time-predictionolist-7sbassgpvyey8uymvhx3am.streamlit.app/](https://the-data-solutions.streamlit.app/)
